@@ -5,8 +5,10 @@ using UnityEngine;
 [CreateAssetMenu]
 public class CardData : ScriptableObject {
 
+    // View
     public string Title;
-    public string Description;
+    public string DescriptionText;
+    public string FlavorText;
 
-    // need logic
+    // Game Logic
 }

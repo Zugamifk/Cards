@@ -13,6 +13,6 @@ public class CardGui : MonoBehaviour {
     public void Initialize(CardData card)
     {
         m_Title.text = card.Title;
-        m_Description.text = card.Description;
+        m_Description.text = card.DescriptionText;
     }
 }
