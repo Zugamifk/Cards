@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CardDatabase : ScriptableObject {
-
-    public List<CardData> Cards;
+namespace BattleGround
+{
+    public class CardDatabase : ScriptableObject
+    {
+        public List<CardData> Cards;
+    }
 }

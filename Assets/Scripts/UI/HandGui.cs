@@ -9,7 +9,7 @@ public class HandGui : MonoBehaviour {
     [SerializeField]
     Transform m_CardParent;
 
-    public void AddCard(CardData card)
+    public void AddCard(ICardState card)
     {
         var c = Instantiate(m_CardPrefab);
         c.Initialize(card);

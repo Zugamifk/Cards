@@ -1,0 +1,15 @@
+{
+    "name": "BasicCards",
+    "references": [
+        "GUID:c306033b257c73049a4644768df02fd9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

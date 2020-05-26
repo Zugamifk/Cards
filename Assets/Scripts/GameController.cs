@@ -2,41 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
-
-    const int k_StartHandSize = 5;
-    const int k_DeckSize = 75;
-
-    [SerializeField]
-    CardDatabase m_CardDatabase;
-
-    [SerializeField]
-    HandGui m_HandGui;
-
-    List<CardData> m_Hand = new List<CardData>();
-    Deck m_Deck = new Deck();
-
-    private void Start()
+namespace BattleGround
+{
+    public class GameController : MonoBehaviour
     {
-        BuildDeck();
-        StartGame();
-    }
 
-    void BuildDeck()
-    {
-        for(int i=0;i< k_DeckSize;i++)
+        const int k_StartHandSize = 5;
+        const int k_DeckSize = 75;
+
+        [SerializeField]
+        CardDatabase m_CardDatabase;
+
+        [SerializeField]
+        HandGui m_HandGui;
+
+        List<CardData> m_Hand = new List<CardData>();
+        Deck m_Deck = new Deck();
+
+        private void Start()
         {
-            m_Deck.Cards.Enqueue(m_CardDatabase.Cards[0]);
+            BuildDeck();
+            StartGame();
         }
-    }
 
-    void StartGame()
-    {
-        for(int i=0;i<k_StartHandSize;i++)
+        void BuildDeck()
         {
-            var card = m_Deck.Draw();
-            m_Hand.Add(card);
-            m_HandGui.AddCard(card);
+            for (int i = 0; i < k_DeckSize; i++)
+            {
+                m_Deck.Cards.Enqueue(m_CardDatabase.Cards[0]);
+            }
+        }
+
+        void StartGame()
+        {
+            for (int i = 0; i < k_StartHandSize; i++)
+            {
+                var card = m_Deck.Draw();
+                m_Hand.Add(card);
+                //m_HandGui.AddCard(card);
+            }
         }
     }
 }

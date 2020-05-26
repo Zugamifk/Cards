@@ -13,20 +13,11 @@ namespace BasicCards
             {
                 foreach (CardData.EValue value in System.Enum.GetValues(typeof(CardData.EValue)))
                 {
-                    OrderedDeck.Add(new CardData(value, suit));
+                    if (value != CardData.EValue.Joker)
+                    {
+                        OrderedDeck.Add(new CardData(value, suit));
+                    }
                 }
-            }
-        }
-
-        public void Shuffle()
-        {
-            for(int i=1;i<OrderedDeck.Count;i++)
-            {
-                var a = OrderedDeck[i];
-                var j = UnityEngine.Random.Range(0, i);
-                var b = OrderedDeck[j];
-                OrderedDeck[i] = b;
-                OrderedDeck[j] = a;
             }
         }
     }
@@ -46,44 +37,52 @@ namespace BasicCards
 
     public class PlayerBase : IPlayerState
     {
-        public IDeckState Deck => throw new System.NotImplementedException();
+        public IDeckState Deck {get; set; }
 
-        public IHandState Hand => throw new System.NotImplementedException();
+        public IHandState Hand { get; } = new Hand();
 
-        public IDiscardPileState DiscardPile => throw new System.NotImplementedException();
+        public IDiscardPileState DiscardPile { get; set; }
 
-        public IEnumerable<ICardData> PlayedCards => throw new System.NotImplementedException();
+        public IEnumerable<ICardData> PlayedCards { get; } = new List<CardData>();
     }
 
     public class BoardState : IBoardState
     {
         public Deck Deck;
-        public Stack<CardData> PlayedCards = new Stack<CardData>();
     }
 
-    public class CardGameBase : IGameState
+    public class BasicCardGame : IGameState
     {
+        Deck m_Deck = new Deck();
+
         public IPlayerState UserPlayer { get; private set; }
 
         public IPlayerState[] AllPlayers { get; private set; }
 
         public IPlayerState CurrentTurnPlayer => AllPlayers[m_CurrentPlayerIndex];
 
-        public IBoardState BoardState { get; }
+        public BoardState BoardState { get; }
+        IBoardState IGameState.BoardState => BoardState;
+
+        public Deck Deck => m_Deck;
 
         int m_CurrentPlayerIndex = 0;
 
-        public CardGameBase()
+        public BasicCardGame(int numPlayers)
         {
+            CardGameUtils.Shuffle(m_Deck);
+
+            AllPlayers = new PlayerBase[numPlayers];
+            for(int i=0;i<numPlayers;i++)
+            {
+                AllPlayers[i] = new PlayerBase();
+            }
+            UserPlayer = AllPlayers[0];
+
             BoardState = new BoardState()
             {
-                Deck = new Deck()
+                Deck = m_Deck
             };
-        }
-
-        public void Start()
-        {
-            AllPlayers = new 
         }
     }
 }
