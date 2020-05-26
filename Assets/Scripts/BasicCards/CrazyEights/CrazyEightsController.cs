@@ -8,12 +8,14 @@ public class CrazyEightsController : MonoBehaviour
     [SerializeField]
     RectTransform m_BoardRoot;
     [SerializeField]
-    Transform m_DeckRoot;
+    DeckGui m_Deck;
     [SerializeField]
-    Transform m_DiscardPileRoot;
+    DiscardPileGui m_DiscardPile;
 
     UIService m_Ui;
     CrazyEights m_Game;
+
+    CardGui m_DiscardPileTopCard;
 
     private void Awake()
     {
@@ -25,14 +27,29 @@ public class CrazyEightsController : MonoBehaviour
         m_Ui = ServiceLocator.Get<UIService>();
 
         m_Ui.SetBoard(m_BoardRoot);
+        m_Ui.OnPlayedCard += PlayCard;
 
-        Instantiate(m_Ui.DeckPrefab, m_DeckRoot);
-        Instantiate(m_Ui.DiscardPilePrefab, m_DiscardPileRoot);
+        m_DiscardPile.OnDropItem += PlayCard;
+        m_Deck.OnClicked += DrawCard;
 
         m_Game.StartGame();
         for (int i = 0; i < 8; i++)
         {
             m_Ui.HandGui.AddCard(m_Game.CardGame.UserPlayer.Hand.HeldCards[i]);
         }
+    }
+
+    void PlayCard(GameObject cardGo)
+    {
+        var cardGui = cardGo.GetComponent<CardGui>();
+        m_Game.PlayCard(cardGui.Card);
+        m_DiscardPile.CardGui.SetCard(cardGui.Card);
+        Destroy(cardGo);
+    }
+
+    void DrawCard()
+    {
+        var card = m_Game.DrawCard(m_Game.CardGame.CurrentTurnPlayer);
+        m_Ui.HandGui.AddCard(card);
     }
 }

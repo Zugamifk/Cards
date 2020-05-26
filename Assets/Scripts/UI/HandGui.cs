@@ -12,7 +12,7 @@ public class HandGui : MonoBehaviour {
     public void AddCard(ICardState card)
     {
         var c = Instantiate(m_CardPrefab);
-        c.Initialize(card);
+        c.SetCard(card);
         c.transform.SetParent(m_CardParent, false);
     }
 }

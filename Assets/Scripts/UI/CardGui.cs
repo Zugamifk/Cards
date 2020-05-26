@@ -10,9 +10,13 @@ public class CardGui : MonoBehaviour {
     [SerializeField]
     Text m_Description;
 
-    public void Initialize(ICardState card)
+    public ICardState Card { get; private set; }
+
+    public void SetCard(ICardState card)
     {
         m_Title.text = card.Data.Name;
         //m_Description.text = card.DescriptionText;
+
+        Card = card;
     }
 }

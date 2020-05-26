@@ -20,5 +20,17 @@ namespace BasicCards
                 m_CardGame.AllPlayers[i].Hand.HeldCards.AddRange(startingHand);
             }
         }
+
+        public void PlayCard(ICardState card)
+        {
+            m_DiscardPile.Push(card);
+        }
+
+        public ICardState DrawCard(IPlayerState player)
+        {
+            var card = CardGameUtils.DrawCard(m_CardGame.Deck);
+            player.Hand.HeldCards.Add(card);
+            return card;
+        }
     }
 }

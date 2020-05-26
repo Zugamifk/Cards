@@ -6,14 +6,18 @@ public class UIService: MonoBehaviour, IService
 {
     public HandGui HandGui;
     public Transform BoardRoot;
+    public BoardDropHandler BoardDropHandler;
 
     public CardGui CardPrefab;
     public GameObject DeckPrefab;
-    public GameObject DiscardPilePrefab;
+    public DiscardPileGui DiscardPilePrefab;
+
+    public event System.Action<GameObject> OnPlayedCard;
 
     void Awake()
     {
         ServiceLocator.Register(this);
+        BoardDropHandler.OnDropItem += OnPlayedCard;
     }
 
     public void SetBoard(RectTransform rt)

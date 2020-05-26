@@ -162,7 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e236403e48b8f047b3be0fccb78576a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayedCards: {fileID: 2024975604125939388}
 --- !u!1 &2024975604191976767
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,10 +217,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HandGui: {fileID: 2024975603941814634}
   BoardRoot: {fileID: 2024975604380751381}
+  BoardDropHandler: {fileID: 2024975604125939389}
   CardPrefab: {fileID: 114578755123946386, guid: 085a9b407e910464bad9d72ef31509b5,
     type: 3}
   DeckPrefab: {fileID: 1752700368905018, guid: 085a9b407e910464bad9d72ef31509b5, type: 3}
-  DiscardPilePrefab: {fileID: 1752700368905018, guid: 085a9b407e910464bad9d72ef31509b5,
+  DiscardPilePrefab: {fileID: 5944757098667244513, guid: 2d2e7a677dc4c5045a0c61ad3bf00175,
     type: 3}
 --- !u!223 &2024975604191976755
 Canvas:
