@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IGameState
+﻿public interface IGameState<TCardState, TPlayerState, TBoardState>
+    where TCardState : ICardState
+    where TPlayerState : IPlayerState<TCardState>
+    where TBoardState : IBoardState
 {
-    IPlayerState UserPlayer { get; }
-    IPlayerState[] AllPlayers { get; }
-    IPlayerState CurrentTurnPlayer { get; }
+    TPlayerState UserPlayer { get; }
+    TPlayerState[] AllPlayers { get; }
+    TPlayerState CurrentTurnPlayer { get; }
 
-    IBoardState BoardState { get; }
+    TBoardState BoardState { get; }
 }

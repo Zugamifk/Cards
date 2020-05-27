@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHandState
+public class Hand<TCardState>
+    where TCardState : ICardState
 {
-    List<ICardState> HeldCards { get; }
+    public List<TCardState> HeldCards { get; } = new List<TCardState>();
 }

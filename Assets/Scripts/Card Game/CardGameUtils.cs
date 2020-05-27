@@ -4,7 +4,8 @@ using UnityEngine;
 
 public static class CardGameUtils
 {
-    public static void Shuffle(IDeckState deck)
+    public static void Shuffle<TCardState>(IDeckState<TCardState> deck)
+        where TCardState : ICardState
     {
         if (deck.OrderedDeck.Count < 2) return;
 
@@ -18,7 +19,8 @@ public static class CardGameUtils
         }
     }
 
-    public static ICardState DrawCard(IDeckState deck)
+    public static TCardState DrawCard<TCardState>(IDeckState<TCardState> deck)
+        where TCardState : ICardState
     {
         if (deck.OrderedDeck.Count > 0)
         {
@@ -27,13 +29,14 @@ public static class CardGameUtils
             return card;
         } else
         {
-            return null;
+            return default(TCardState);
         }
     }
 
-    public static IEnumerable<ICardState> DrawCards(IDeckState deck, int numberToDraw)
+    public static IEnumerable<TCardState> DrawCards<TCardState>(IDeckState<TCardState> deck, int numberToDraw)
+        where TCardState : ICardState
     {
-        for(int i=0;i<numberToDraw;i++)
+        for (int i=0;i<numberToDraw;i++)
         {
             var card = DrawCard(deck);
             if(card!=null)

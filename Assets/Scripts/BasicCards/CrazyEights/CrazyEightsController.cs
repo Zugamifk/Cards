@@ -42,14 +42,22 @@ public class CrazyEightsController : MonoBehaviour
     void PlayCard(GameObject cardGo)
     {
         var cardGui = cardGo.GetComponent<CardGui>();
-        m_Game.PlayCard(cardGui.Card);
-        m_DiscardPile.CardGui.SetCard(cardGui.Card);
-        Destroy(cardGo);
+        var card = (Card)cardGui.Card;
+        if (IsPlayable(card)) {
+            m_Game.PlayCard(card);
+            m_DiscardPile.CardGui.SetCard(cardGui.Card);
+            Destroy(cardGo);
+        }
     }
 
     void DrawCard()
     {
         var card = m_Game.DrawCard(m_Game.CardGame.CurrentTurnPlayer);
         m_Ui.HandGui.AddCard(card);
+    }
+
+    bool IsPlayable(Card card)
+    {
+        return m_Game.LastPlayedCard == null || card.Suit == m_Game.LastPlayedCard.Suit || card.Value == m_Game.LastPlayedCard.Value;
     }
 }

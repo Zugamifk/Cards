@@ -4,7 +4,5 @@ using UnityEngine;
 
 public interface ICardState
 {
-    ICardData Data { get; }
-    IPlayerState Owner { get; set; }
-    IPlayerState Controller { get; set; }
+    string Name { get; }
 }

@@ -6,3 +6,8 @@ public interface IService
 {
     
 }
+
+public interface IConstructableService
+{
+
+}

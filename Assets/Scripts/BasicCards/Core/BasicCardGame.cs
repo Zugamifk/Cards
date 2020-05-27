@@ -2,48 +2,28 @@
 
 namespace BasicCards
 {
-    public class Deck : IDeckState
+    public class Deck : IDeckState<Card>
     {
-        public List<ICardState> OrderedDeck { get; }
+        public List<Card> OrderedDeck { get; } = new List<Card>();
 
         public Deck()
         {
-            OrderedDeck = new List<ICardState>();
-            foreach (CardData.ESuit suit in System.Enum.GetValues(typeof(CardData.ESuit)))
+            foreach (Card.ESuit suit in System.Enum.GetValues(typeof(Card.ESuit)))
             {
-                foreach (CardData.EValue value in System.Enum.GetValues(typeof(CardData.EValue)))
+                foreach (Card.EValue value in System.Enum.GetValues(typeof(Card.EValue)))
                 {
-                    if (value != CardData.EValue.Joker)
+                    if (value != Card.EValue.Joker)
                     {
-                        OrderedDeck.Add(new CardData(value, suit));
+                        OrderedDeck.Add(new Card(value, suit));
                     }
                 }
             }
         }
     }
 
-    public class Hand : IHandState
+    public class PlayerBase : IPlayerState<Card>
     {
-        public List<ICardState> HeldCards
-        {
-            get;
-        }
-        public Hand()
-        {
-            HeldCards = new List<ICardState>();
-        }
-    }
-
-
-    public class PlayerBase : IPlayerState
-    {
-        public IDeckState Deck {get; set; }
-
-        public IHandState Hand { get; } = new Hand();
-
-        public IDiscardPileState DiscardPile { get; set; }
-
-        public IEnumerable<ICardData> PlayedCards { get; } = new List<CardData>();
+        public Hand<Card> Hand { get; } = new Hand<Card>();
     }
 
     public class BoardState : IBoardState
@@ -51,18 +31,17 @@ namespace BasicCards
         public Deck Deck;
     }
 
-    public class BasicCardGame : IGameState
+    public class BasicCardGame : IGameState<Card, PlayerBase, BoardState>
     {
         Deck m_Deck = new Deck();
 
-        public IPlayerState UserPlayer { get; private set; }
+        public PlayerBase UserPlayer { get; private set; }
 
-        public IPlayerState[] AllPlayers { get; private set; }
+        public PlayerBase[] AllPlayers { get; private set; }
 
-        public IPlayerState CurrentTurnPlayer => AllPlayers[m_CurrentPlayerIndex];
+        public PlayerBase CurrentTurnPlayer => AllPlayers[m_CurrentPlayerIndex];
 
         public BoardState BoardState { get; }
-        IBoardState IGameState.BoardState => BoardState;
 
         public Deck Deck => m_Deck;
 

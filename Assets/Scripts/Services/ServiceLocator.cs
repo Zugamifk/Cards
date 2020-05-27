@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public static class ServiceLocator
 {
@@ -19,6 +20,16 @@ public static class ServiceLocator
 
     public static TService Get<TService>() where TService : IService
     {
-        return (TService)s_Services[typeof(TService)];
+        IService result = null;
+        if(!s_Services.TryGetValue(typeof(TService), out result))
+        {
+            if(typeof(IConstructableService).IsAssignableFrom(typeof(TService)))
+            {
+                result = Activator.CreateInstance<TService>();
+                s_Services[typeof(TService)] = result;
+            }
+        }
+
+        return (TService)result;
     }
 }

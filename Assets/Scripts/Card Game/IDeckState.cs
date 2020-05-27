@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDeckState
+public interface IDeckState<TCardState>
+    where TCardState : ICardState
 {
-    List<ICardState> OrderedDeck { get; }
-
+    List<TCardState> OrderedDeck { get; }
 }

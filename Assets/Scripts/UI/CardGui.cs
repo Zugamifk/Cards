@@ -14,7 +14,7 @@ public class CardGui : MonoBehaviour {
 
     public void SetCard(ICardState card)
     {
-        m_Title.text = card.Data.Name;
+        m_Title.text = card.Name;
         //m_Description.text = card.DescriptionText;
 
         Card = card;

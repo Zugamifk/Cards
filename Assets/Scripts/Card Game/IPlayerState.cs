@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPlayerState
+public interface IPlayerState<TCardState>
+    where TCardState : ICardState
 {
-    IDeckState Deck { get; }
-    IHandState Hand { get; }
-    IDiscardPileState DiscardPile { get; }
-
-    IEnumerable<ICardData> PlayedCards { get; }
+    Hand<TCardState> Hand { get; }
 }
